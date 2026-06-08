@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>Oga Ledger Settings</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-fixed-dim": "#59de9b",
+                    "secondary-container": "#b9ebca",
+                    "on-primary-container": "#00331d",
+                    "inverse-surface": "#2f3133",
+                    "on-secondary-fixed": "#002111",
+                    "on-secondary-container": "#3e6c51",
+                    "on-secondary": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "surface-bright": "#f9f9fc",
+                    "secondary-fixed-dim": "#a0d2b2",
+                    "on-primary-fixed": "#002111",
+                    "surface-variant": "#e2e2e5",
+                    "primary-fixed": "#78fbb6",
+                    "surface": "#f9f9fc",
+                    "on-tertiary": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "tertiary-container": "#e86c6e",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-fixed": "#bceecd",
+                    "outline-variant": "#bccabe",
+                    "inverse-on-surface": "#f0f0f3",
+                    "inverse-primary": "#59de9b",
+                    "background": "#f9f9fc",
+                    "on-surface": "#1a1c1e",
+                    "surface-container-high": "#e8e8ea",
+                    "surface-container-low": "#f3f3f6",
+                    "on-surface-variant": "#3d4a41",
+                    "primary": "#006d43",
+                    "on-primary-fixed-variant": "#005232",
+                    "on-secondary-fixed-variant": "#214f37",
+                    "outline": "#6d7a70",
+                    "surface-dim": "#dadadc",
+                    "tertiary": "#a5393e",
+                    "on-error": "#ffffff",
+                    "on-background": "#1a1c1e",
+                    "secondary": "#3a684d",
+                    "surface-container": "#eeeef0",
+                    "surface-tint": "#006d43",
+                    "error": "#ba1a1a",
+                    "on-tertiary-fixed-variant": "#852229",
+                    "on-tertiary-container": "#5e0211",
+                    "surface-container-highest": "#e2e2e5",
+                    "tertiary-fixed-dim": "#ffb3b1",
+                    "tertiary-fixed": "#ffdad8",
+                    "on-tertiary-fixed": "#410008",
+                    "error-container": "#ffdad6",
+                    "primary-container": "#00a86b"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Plus Jakarta Sans"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .tap-highlight-none {
+            -webkit-tap-highlight-color: transparent;
+        }
+        body {
+            background-color: #f9f9fc;
+            font-family: 'Inter', sans-serif;
+        }
+        h1, h2, h3 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="text-on-surface">
+<!-- Top App Bar -->
+<header class="fixed top-0 w-full z-50 bg-[#f9f9fc]/85 backdrop-blur-md flex items-center justify-between px-6 h-16 w-full">
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-[#006d43] hover:bg-[#00A86B]/10 transition-colors p-2 rounded-full">arrow_back</button>
+<h1 class="font-['Plus_Jakarta_Sans'] font-bold text-lg tracking-tight text-[#006d43]">Settings</h1>
+</div>
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center overflow-hidden border border-outline-variant/15">
+<img alt="Profile" class="w-full h-full object-cover" data-alt="close-up portrait of a professional smiling Nigerian man with short hair in a clean minimalist environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQC8H8_aljWDLc_1xmR-XZ5Q6CztsrWVa6ALK2QfN7vx5ys005rCiqAY2fx4fe3lea_ystN8XYo4N69eEs71pNnsxRtZCh5XNtytdg4qxrVeWKbhg6Q75Hg8LorLEVsIFjdWEFGVFq8EbXtoEMXFT63oLBk9GdLu6S3U05rkMQZaWoYFvwdM31Hu7ul8x9Hd5NwTdmTFxVjy8gbc6TRXB4Mvlf-QszzR6NDPrEWiNx0hxY-gtJ51R0pYLkz6uWwWJRSj4ZJ3pRD5s"/>
+</div>
+</header>
+<main class="pt-20 pb-28 px-6 space-y-8">
+<!-- Profile Header -->
+<section class="mt-4 flex flex-col items-start gap-4">
+<div class="relative">
+<div class="w-20 h-20 rounded-full border-4 border-primary-container p-1 shadow-lg">
+<img alt="Profile Large" class="w-full h-full rounded-full bg-surface-container-high" data-alt="Avatar illustration of a professional businessman with a confident expression" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIuy4jixsqeD6Nj0OPPKmRjfFvZjS5oLaPJo_28k5SEWdALhczva_9Fs-XEn9FOUA2mxg4FuGhKo2xbwJD2PPnG06li3P37roLm2_C8sLZ1ZGLyCA4WV2fpxMo0QOFAWjrTPBE29k3ASLp6Ft2n757vGn2sxBfzrPULMFSmy04s1wFtBYGC2AScF7JF_3NWBGYxxcq79iF0D7opeXKs1agjZs2R-aFGr9_U58xQQ8KV1jAPq_EqRJZ2ehJtJe1i1b8yX9NK6WfaQQ"/>
+</div>
+<div class="absolute bottom-0 right-0 bg-primary p-1.5 rounded-full border-2 border-white">
+<span class="material-symbols-outlined text-white text-[16px]">edit</span>
+</div>
+</div>
+<div>
+<h2 class="text-2xl font-extrabold text-on-surface tracking-tight">Chukwuma O.</h2>
+<p class="text-primary font-medium text-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">storefront</span>
+                    Oga's Provision Store
+                </p>
+</div>
+</section>
+<!-- Business Settings Section -->
+<section>
+<h3 class="text-xs font-bold uppercase tracking-widest text-outline mb-4 px-1">Business Settings</h3>
+<div class="bg-surface-container-low rounded-2xl overflow-hidden">
+<button class="w-full flex items-center justify-between p-4 hover:bg-surface-container-high transition-colors active:scale-[0.98] duration-150">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">business_center</span>
+</div>
+<span class="font-medium text-on-surface">Business Profile</span>
+</div>
+<span class="material-symbols-outlined text-outline">chevron_right</span>
+</button>
+<button class="w-full flex items-center justify-between p-4 hover:bg-surface-container-high transition-colors active:scale-[0.98] duration-150">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">account_balance</span>
+</div>
+<span class="font-medium text-on-surface">Bank Account Details</span>
+</div>
+<span class="material-symbols-outlined text-outline">chevron_right</span>
+</button>
+<button class="w-full flex items-center justify-between p-4 hover:bg-surface-container-high transition-colors active:scale-[0.98] duration-150">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">receipt_long</span>
+</div>
+<span class="font-medium text-on-surface">Tax Information</span>
+</div>
+<span class="material-symbols-outlined text-outline">chevron_right</span>
+</button>
+</div>
+</section>
+<!-- Security Section -->
+<section>
+<h3 class="text-xs font-bold uppercase tracking-widest text-outline mb-4 px-1">Security</h3>
+<div class="bg-surface-container-low rounded-2xl overflow-hidden">
+<button class="w-full flex items-center justify-between p-4 hover:bg-surface-container-high transition-colors active:scale-[0.98] duration-150">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">lock</span>
+</div>
+<span class="font-medium text-on-surface">Change PIN</span>
+</div>
+<span class="material-symbols-outlined text-outline">chevron_right</span>
+</button>
+<div class="w-full flex items-center justify-between p-4">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">fingerprint</span>
+</div>
+<span class="font-medium text-on-surface">Biometric Login</span>
+</div>
+<div class="relative inline-flex items-center cursor-pointer">
+<div class="w-11 h-6 bg-primary-container rounded-full peer"></div>
+<div class="absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform translate-x-5"></div>
+</div>
+</div>
+<button class="w-full flex items-center justify-between p-4 hover:bg-surface-container-high transition-colors active:scale-[0.98] duration-150">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">devices</span>
+</div>
+<span class="font-medium text-on-surface">Trusted Devices</span>
+</div>
+<span class="material-symbols-outlined text-outline">chevron_right</span>
+</button>
+</div>
+</section>
+<!-- Preferences Section -->
+<section>
+<h3 class="text-xs font-bold uppercase tracking-widest text-outline mb-4 px-1">Preferences</h3>
+<div class="bg-surface-container-low rounded-2xl overflow-hidden">
+<button class="w-full flex items-center justify-between p-4 hover:bg-surface-container-high transition-colors active:scale-[0.98] duration-150">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">translate</span>
+</div>
+<div class="text-left">
+<span class="block font-medium text-on-surface">Language</span>
+<span class="text-xs text-outline">English (US)</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline">chevron_right</span>
+</button>
+<button class="w-full flex items-center justify-between p-4 hover:bg-surface-container-high transition-colors active:scale-[0.98] duration-150">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">notifications</span>
+</div>
+<span class="font-medium text-on-surface">Notification Settings</span>
+</div>
+<span class="material-symbols-outlined text-outline">chevron_right</span>
+</button>
+<button class="w-full flex items-center justify-between p-4 hover:bg-surface-container-high transition-colors active:scale-[0.98] duration-150">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">dark_mode</span>
+</div>
+<div class="text-left">
+<span class="block font-medium text-on-surface">Theme</span>
+<span class="text-xs text-primary font-semibold">Light</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline">chevron_right</span>
+</button>
+</div>
+</section>
+<!-- Support & Legal Section -->
+<section>
+<h3 class="text-xs font-bold uppercase tracking-widest text-outline mb-4 px-1">Support &amp; Legal</h3>
+<div class="bg-surface-container-low rounded-2xl overflow-hidden">
+<button class="w-full flex items-center justify-between p-4 hover:bg-surface-container-high transition-colors active:scale-[0.98] duration-150">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">help</span>
+</div>
+<span class="font-medium text-on-surface">Help Center</span>
+</div>
+<span class="material-symbols-outlined text-outline">chevron_right</span>
+</button>
+<button class="w-full flex items-center justify-between p-4 hover:bg-surface-container-high transition-colors active:scale-[0.98] duration-150">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">policy</span>
+</div>
+<span class="font-medium text-on-surface">Privacy Policy</span>
+</div>
+<span class="material-symbols-outlined text-outline">chevron_right</span>
+</button>
+<button class="w-full flex items-center justify-between p-4 hover:bg-error/5 transition-colors active:scale-[0.98] duration-150 group">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-xl bg-tertiary/10 flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined">logout</span>
+</div>
+<span class="font-bold text-tertiary">Log Out</span>
+</div>
+</button>
+</div>
+</section>
+<!-- App Version -->
+<div class="text-center py-4">
+<p class="text-outline text-xs font-medium">Oga Ledger v2.4.0</p>
+<p class="text-outline/40 text-[10px] mt-1 uppercase tracking-tighter">Powered by Sovereign Tech</p>
+</div>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 py-3 pb-safe bg-[#f9f9fc]/85 backdrop-blur-md rounded-t-3xl border-t border-[#bccabe]/15 shadow-[0_-8px_32px_rgba(0,82,50,0.06)] z-50">
+<button class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-3 py-1.5 hover:text-[#006d43] tap-highlight-none active:scale-90 transition-transform">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+<span class="font-['Inter'] text-[12px] font-medium mt-1">Ledger</span>
+</button>
+<button class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-3 py-1.5 hover:text-[#006d43] tap-highlight-none active:scale-90 transition-transform">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-['Inter'] text-[12px] font-medium mt-1">Insights</span>
+</button>
+<button class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-3 py-1.5 hover:text-[#006d43] tap-highlight-none active:scale-90 transition-transform">
+<span class="material-symbols-outlined">verified_user</span>
+<span class="font-['Inter'] text-[12px] font-medium mt-1">Safety</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-[#00A86B]/10 text-[#006d43] rounded-xl px-3 py-1.5 tap-highlight-none active:scale-90 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">settings</span>
+<span class="font-['Inter'] text-[12px] font-medium mt-1">Settings</span>
+</button>
+</nav>
+</body></html>

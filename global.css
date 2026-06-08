@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@theme {
+  --color-primary: #F27318;
+  --color-primary-dark: #C65A10;
+}
+
+/* Force NativeWind to map the utility class if it's acting up */
+.bg-primary {
+  background-color: var(--color-primary);
+}
