@@ -66,30 +66,6 @@ const DashboardLayout = () => {
           ),
         }}
       />
-      <Tabs.Screen
-        name="explore-old"
-        options={{
-          href: null,
-        }}
-      />
-      <Tabs.Screen
-        name="saved-old"
-        options={{
-          href: null,
-        }}
-      />
-      <Tabs.Screen
-        name="profile-old"
-        options={{
-          href: null,
-        }}
-      />
-      <Tabs.Screen
-        name="create"
-        options={{
-          href: null,
-        }}
-      />
     </Tabs>
   );
 };

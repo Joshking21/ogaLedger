@@ -10,8 +10,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Image } from "expo-image";
 import { useRouter } from "expo-router";
 import { useApp } from "../../context/AppContext";
-import { Bell, ChevronRight, Plus } from "lucide-react-native";
-import { Wallet, ShoppingCart, ArrowDownLeft, AlertCircle, TrendingUp } from "@/components/icons";
+import { Bell, ChevronRight, Plus, ArrowDownLeft, AlertCircle, TrendingUp } from "lucide-react-native";
+import { Wallet, ShoppingCart } from "@/components/icons";
 
 const { width } = Dimensions.get("window");
 
