@@ -7,6 +7,7 @@ import {
   ScrollView,
   Alert,
 } from "react-native";
+import { Button, ButtonText } from "@/components/ui/button";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
 import { useApp } from "../context/AppContext";
@@ -72,12 +73,12 @@ const EditProfile = () => {
           </Text>
         </View>
 
-        <Pressable
+        <Button
           onPress={handleSave}
           className="px-4 py-2 rounded-xl bg-[#006d43]/10 active:bg-[#006d43]/20"
         >
-          <Text className="text-[#006d43] font-bold text-sm">Save</Text>
-        </Pressable>
+          <ButtonText className="text-[#006d43] font-bold text-sm">Save</ButtonText>
+        </Button>
       </View>
 
       <ScrollView

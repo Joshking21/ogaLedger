@@ -1,12 +1,12 @@
-import '@/global.css';
-import { useColorScheme, View } from "react-native";
-import React from "react";
-import { Stack } from "expo-router";
 import { GluestackUIProvider } from '@/components/ui/gluestack-ui-provider';
+import '@/global.css';
+import { Stack } from "expo-router";
+import React from "react";
+import { View } from "react-native";
 import { AppProvider } from '../context/AppContext';
 
 const RootLayout = () => {
-  const colorScheme = useColorScheme();
+  // const colorScheme = useColorScheme();
 
   return (
     <AppProvider>

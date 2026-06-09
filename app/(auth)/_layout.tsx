@@ -1,9 +1,5 @@
-import { StatusBar, StyleSheet, Text, useColorScheme, View } from "react-native";
+import { Stack } from "expo-router";
 import React from "react";
-import { Slot, Stack } from "expo-router";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { StackScreen } from "react-native-screens";
-import { Colors } from "../../constants/colors";
 
 const RootLayout = () => {
 
@@ -15,6 +11,7 @@ const RootLayout = () => {
         screenOptions={{
             headerStyle: { backgroundColor: "red" },
             headerTintColor: "yellow ",
+            headerShown:false,
             animation:"none"
         }}
         >

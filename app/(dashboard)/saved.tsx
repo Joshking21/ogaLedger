@@ -6,6 +6,7 @@ import {
   FlatList,
   Alert,
 } from "react-native";
+import { Button, ButtonText, ButtonIcon } from "@/components/ui/button";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Image } from "expo-image";
 import { useApp, Debtor } from "../../context/AppContext";
@@ -68,17 +69,17 @@ const SavedTab = () => {
           <Text className="font-extrabold text-lg text-[#a5393e]">
             ₦{item.amountOwed.toLocaleString()}
           </Text>
-          <Pressable
+          <Button
             onPress={() => handleRemind(item)}
             className={`mt-2.5 px-4 py-2 rounded-xl flex-row items-center gap-1.5 ${
               hasBeenReminded ? "bg-slate-100" : "bg-[#006d43]"
             } active:opacity-95`}
           >
-            <Send size={11} color={hasBeenReminded ? "#6d7a70" : "#ffffff"} />
-            <Text className={`text-xs font-bold ${hasBeenReminded ? "text-[#6d7a70]" : "text-white"}`}>
+            <ButtonIcon as={Send} className={hasBeenReminded ? "text-[#6d7a70]" : "text-white"} size={11 as any} />
+            <ButtonText className={`text-xs font-bold ${hasBeenReminded ? "text-[#6d7a70]" : "text-white"}`}>
               {hasBeenReminded ? "Reminded" : "Remind"}
-            </Text>
-          </Pressable>
+            </ButtonText>
+          </Button>
         </View>
       </View>
     );
@@ -104,14 +105,14 @@ const SavedTab = () => {
           </View>
 
           {debtors.length > 0 && (
-            <Pressable
+            <Button
               onPress={handleRemindAll}
               className="bg-[#a5393e] active:bg-[#852229] px-4 py-3 rounded-2xl shadow-sm"
             >
-              <Text className="text-white text-xs font-bold uppercase tracking-wider">
+              <ButtonText className="text-white text-xs font-bold uppercase tracking-wider">
                 Remind All
-              </Text>
-            </Pressable>
+              </ButtonText>
+            </Button>
           )}
         </View>
       </View>

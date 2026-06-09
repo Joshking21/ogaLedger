@@ -1,17 +1,13 @@
-import React from "react";
-import {
-  ScrollView,
-  Text,
-  View,
-  Pressable,
-  Dimensions,
-} from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { ShoppingCart, Wallet } from "@/components/icons";
+import { Button, ButtonIcon, ButtonText } from "@/components/ui/button";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Image } from "expo-image";
 import { useRouter } from "expo-router";
+import { AlertCircle, Bell, Plus, TrendingUp } from "lucide-react-native";
+import React, { useEffect, useState } from "react";
+import { Dimensions, Pressable, ScrollView, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { useApp } from "../../context/AppContext";
-import { Bell, ChevronRight, Plus, ArrowDownLeft, AlertCircle, TrendingUp } from "lucide-react-native";
-import { Wallet, ShoppingCart } from "@/components/icons";
 
 const { width } = Dimensions.get("window");
 
@@ -19,6 +15,29 @@ const HomeTab = () => {
   const router = useRouter();
   const { transactions, debtors } = useApp();
 
+  const [name, setName] = useState<string | null>(null);
+  const [shopName, setShopName] = useState<string | null>(null);
+
+  // 2. Fetch the credentials asynchronously safely inside a hook
+  useEffect(() => {
+    const checkCredentials = async () => {
+      try {
+        setName(await AsyncStorage.getItem("userFullName"));
+        setShopName(await AsyncStorage.getItem("userShopName"));
+      } catch (error) {
+        console.error("Failed to load credentials:", error);
+      } finally {
+        // setIsLoading(false);
+      }
+    };
+
+    checkCredentials();
+  }, []);
+
+  const words = name?.split(" ") ;
+
+  // Grab the second item (index 1, since programming counts from 0)
+  const secondWord = words?.[1];
   // Calculate stats based on transactions
   const todaySales = transactions
     .filter((t) => t.type === "sale")
@@ -40,12 +59,14 @@ const HomeTab = () => {
         <View className="flex-row items-center gap-3">
           <View className="w-10 h-10 rounded-full overflow-hidden bg-[#b9ebca] flex items-center justify-center border border-[#bccabe]/15">
             <Image
-              source={{ uri: "https://lh3.googleusercontent.com/aida-public/AB6AXuCfzf5KubdEPPO8BINF_eGvh6hoFvakSfpSLS34nO6I_gSG65hLFmEQAS6SyLi0J2pkGWvvCU7c1tsTutRTy2mXRY6b7Sn15mrK8x_FaVc-UZPU8Q8EX1mOeHrKWxqghAFguHy2sZ2IjeK8A20F3v_UmG1FhZZVj5SK30RZUGJrfq24UOOhOns8aikKgP2LxemSxDaVeWxp8A3xrbFUK7JMpRDI3Vuw92SmRVh4pBEFag6kGJT8jXrX9k9pMiakGIDQf1ndX7FU6CU" }}
+              source={{
+                uri: "https://lh3.googleusercontent.com/aida-public/AB6AXuCfzf5KubdEPPO8BINF_eGvh6hoFvakSfpSLS34nO6I_gSG65hLFmEQAS6SyLi0J2pkGWvvCU7c1tsTutRTy2mXRY6b7Sn15mrK8x_FaVc-UZPU8Q8EX1mOeHrKWxqghAFguHy2sZ2IjeK8A20F3v_UmG1FhZZVj5SK30RZUGJrfq24UOOhOns8aikKgP2LxemSxDaVeWxp8A3xrbFUK7JMpRDI3Vuw92SmRVh4pBEFag6kGJT8jXrX9k9pMiakGIDQf1ndX7FU6CU",
+              }}
               className="w-full h-full object-cover"
             />
           </View>
           <Text className="font-extrabold text-xl text-[#006d43] tracking-tight">
-            Sovereign Ledger
+            {shopName} Ledger
           </Text>
         </View>
 
@@ -57,11 +78,11 @@ const HomeTab = () => {
       <ScrollView showsVerticalScrollIndicator={false} className="flex-1 px-6">
         {/* Overview Banner */}
         <View className="mb-6 mt-2">
-          <Text className="font-bold text-xs text-[#3d4a41] tracking-widest uppercase mb-1">
+          {/* <Text className="font-bold text-xs text-[#3d4a41] tracking-widest uppercase mb-1">
             OVERVIEW
-          </Text>
+          </Text> */}
           <Text className="font-extrabold text-3xl text-[#1a1c1e] tracking-tight">
-            Morning, Oga
+            Morning, Oga {secondWord}
           </Text>
         </View>
 
@@ -87,12 +108,14 @@ const HomeTab = () => {
               <View className="bg-white/15 px-2.5 py-0.5 rounded-full">
                 <Text className="text-emerald-300 text-xs font-bold">+12%</Text>
               </View>
-              <Pressable
+              <Button
                 onPress={() => router.push("/explore")}
                 className="bg-white/10 active:bg-white/20 px-3 py-1.5 rounded-xl border border-white/10"
               >
-                <Text className="text-white text-xs font-bold">Details</Text>
-              </Pressable>
+                <ButtonText className="text-white text-xs font-bold">
+                  Details
+                </ButtonText>
+              </Button>
             </View>
           </View>
 
@@ -130,14 +153,14 @@ const HomeTab = () => {
                 )}
               </View>
 
-              <Pressable
+              <Button
                 onPress={() => router.push("/saved")}
-                className="active:opacity-80"
+                className="bg-transparent border-none p-0 active:opacity-85"
               >
-                <Text className="text-[#006d43] font-bold text-xs uppercase tracking-wider">
+                <ButtonText className="text-[#006d43] font-bold text-xs uppercase tracking-wider">
                   Remind All
-                </Text>
-              </Pressable>
+                </ButtonText>
+              </Button>
             </View>
           </View>
         </View>
@@ -148,9 +171,14 @@ const HomeTab = () => {
             <Text className="font-extrabold text-xl text-[#1a1c1e] tracking-tight">
               Recent Activities
             </Text>
-            <Pressable onPress={() => router.push("/explore")} className="active:opacity-75">
-              <Text className="text-[#006d43] font-bold text-sm">See all</Text>
-            </Pressable>
+            <Button
+              onPress={() => router.push("/explore")}
+              className="bg-transparent border-none p-0 active:opacity-75"
+            >
+              <ButtonText className="text-[#006d43] font-bold text-sm">
+                See all
+              </ButtonText>
+            </Button>
           </View>
 
           <View className="flex-col gap-4">
@@ -178,14 +206,18 @@ const HomeTab = () => {
               return (
                 <Pressable
                   key={item.id}
-                  onPress={() => router.push({
-                    pathname: "/detail",
-                    params: { id: item.id }
-                  })}
+                  onPress={() =>
+                    router.push({
+                      pathname: "/detail",
+                      params: { id: item.id },
+                    })
+                  }
                   className={`flex-row justify-between items-center p-5 rounded-3xl ${glowBg} border border-[#bccabe]/5`}
                 >
                   <View className="flex-row items-center gap-4">
-                    <View className={`w-12 h-12 rounded-2xl bg-white items-center justify-center shadow-sm`}>
+                    <View
+                      className={`w-12 h-12 rounded-2xl bg-white items-center justify-center shadow-sm`}
+                    >
                       {isSale ? (
                         <ShoppingCart size={22} color="#006d43" />
                       ) : isDebt ? (
@@ -199,7 +231,12 @@ const HomeTab = () => {
                         {item.title}
                       </Text>
                       <Text className="text-[#6d7a70] text-xs mt-1">
-                        {item.date} • {item.type === "sale" ? "Cash Sale" : item.type === "debt" ? "Credit" : "Expense"}
+                        {item.date} •{" "}
+                        {item.type === "sale"
+                          ? "Cash Sale"
+                          : item.type === "debt"
+                            ? "Credit"
+                            : "Expense"}
                       </Text>
                     </View>
                   </View>
@@ -253,7 +290,7 @@ const HomeTab = () => {
       </ScrollView>
 
       {/* Floating Action Button (FAB) */}
-      <Pressable
+      <Button
         onPress={() => router.push("/new-transaction")}
         style={{
           shadowColor: "#005232",
@@ -264,8 +301,8 @@ const HomeTab = () => {
         }}
         className="absolute right-6 bottom-6 w-14 h-14 rounded-2xl bg-gradient-to-tl from-[#006d43] to-[#00a86b] items-center justify-center z-50 active:scale-95"
       >
-        <Plus size={28} color="#ffffff" />
-      </Pressable>
+        <ButtonIcon as={Plus} className="text-white" size={28 as any} />
+      </Button>
     </SafeAreaView>
   );
 };

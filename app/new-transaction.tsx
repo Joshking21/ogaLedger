@@ -9,6 +9,7 @@ import {
   Platform,
   Alert,
 } from "react-native";
+import { Button, ButtonText, ButtonIcon } from "@/components/ui/button";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
 import { useApp } from "../context/AppContext";
@@ -211,15 +212,15 @@ const NewTransaction = () => {
 
       {/* Floating Save button wrapper */}
       <View className="absolute bottom-0 w-full p-6 bg-white/95 border-t border-[#bccabe]/10">
-        <Pressable
+        <Button
           onPress={handleSave}
           className="w-full h-14 rounded-2xl bg-gradient-to-tl from-[#006d43] to-[#00a86b] flex-row items-center justify-center gap-2 shadow-md"
         >
-          <CheckCircle2 size={20} color="#ffffff" />
-          <Text className="text-white font-bold text-lg">
+          <ButtonIcon as={CheckCircle2} className="text-white" />
+          <ButtonText className="text-white font-bold text-lg">
             Save Transaction
-          </Text>
-        </Pressable>
+          </ButtonText>
+        </Button>
       </View>
     </SafeAreaView>
   );

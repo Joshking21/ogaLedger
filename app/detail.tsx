@@ -6,6 +6,7 @@ import {
   Pressable,
   Alert,
 } from "react-native";
+import { Button, ButtonText, ButtonIcon } from "@/components/ui/button";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ArrowLeft, Trash2, Send, Calendar, Clock, User, FileText, Bookmark } from "lucide-react-native";
@@ -179,15 +180,15 @@ const TransactionDetail = () => {
       {/* Floating Action Bar - Only show when it's a debt for reminder */}
       {isDebt && (
         <View className="absolute bottom-0 w-full p-6 bg-white/95 border-t border-[#bccabe]/10">
-          <Pressable
+          <Button
             onPress={handleSendReminder}
             className="w-full h-14 rounded-2xl bg-[#006d43] active:bg-[#005232] flex-row items-center justify-center gap-2 shadow-md shadow-[#005232]/25"
           >
-            <Send size={18} color="#ffffff" />
-            <Text className="text-white font-bold text-lg">
+            <ButtonIcon as={Send} className="text-white" />
+            <ButtonText className="text-white font-bold text-lg">
               Send Reminders
-            </Text>
-          </Pressable>
+            </ButtonText>
+          </Button>
         </View>
       )}
     </SafeAreaView>

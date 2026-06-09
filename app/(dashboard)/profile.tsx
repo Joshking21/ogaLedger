@@ -1,31 +1,26 @@
-import React, { useState } from "react";
-import {
-  Text,
-  View,
-  Pressable,
-  ScrollView,
-  Switch,
-  Alert,
-} from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Image } from "expo-image";
 import { useRouter } from "expo-router";
-import { useApp } from "../../context/AppContext";
+import * as SecureStore from "expo-secure-store";
 import {
-  User,
-  ChevronRight,
-  Lock,
-  Fingerprint,
-  Languages,
   Bell,
-  Sun,
-  HelpCircle,
-  ShieldAlert,
-  LogOut,
   Briefcase,
   Building,
+  ChevronRight,
+  Fingerprint,
+  HelpCircle,
+  Languages,
+  Lock,
+  LogOut,
   Receipt,
+  ShieldAlert,
+  Sun,
+  User,
 } from "lucide-react-native";
+import React, { useState } from "react";
+import { Alert, Pressable, ScrollView, Switch, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { useApp } from "../../context/AppContext";
 
 const ProfileTab = () => {
   const router = useRouter();
@@ -33,16 +28,28 @@ const ProfileTab = () => {
   const [biometricsEnabled, setBiometricsEnabled] = useState(true);
 
   const handleLogout = () => {
-    Alert.alert("Log Out", "Are you sure you want to log out of Sovereign Ledger?", [
-      { text: "Cancel", style: "cancel" },
-      {
-        text: "Log Out",
-        style: "destructive",
-        onPress: () => {
-          router.replace("/");
+    Alert.alert(
+      "Log Out",
+      "Are you sure you want to log out of Sovereign Ledger?",
+      [
+        { text: "Cancel", style: "cancel" },
+        {
+          text: "Log Out",
+          style: "destructive",
+          onPress: async () => {
+            try {
+              await AsyncStorage.removeItem("userEmail");
+              await SecureStore.deleteItemAsync("userPassword");
+              console.log("Cache cleared!");
+            } catch (error) {
+              console.error("Error clearing data:", error);
+            } finally {
+              router.replace("/");
+            }
+          },
         },
-      },
-    ]);
+      ],
+    );
   };
 
   return (
@@ -68,7 +75,9 @@ const ProfileTab = () => {
               onPress={() => router.push("/edit-profile")}
               className="absolute bottom-0 right-0 bg-[#006d43] p-1.5 rounded-full border-2 border-white active:scale-90"
             >
-              <Text className="text-[9px] font-bold text-white uppercase px-0.5">Edit</Text>
+              <Text className="text-[9px] font-bold text-white uppercase px-0.5">
+                Edit
+              </Text>
             </Pressable>
           </View>
 
@@ -99,33 +108,49 @@ const ProfileTab = () => {
                 <View className="w-10 h-10 rounded-xl bg-[#006d43]/10 flex items-center justify-center">
                   <Briefcase size={20} color="#006d43" />
                 </View>
-                <Text className="font-bold text-[#1a1c1e] text-base">Business Profile</Text>
+                <Text className="font-bold text-[#1a1c1e] text-base">
+                  Business Profile
+                </Text>
               </View>
               <ChevronRight size={18} color="#6d7a70" />
             </Pressable>
 
             <Pressable
-              onPress={() => Alert.alert("Feature Locked", "CAC validation pending for automated accounts.")}
+              onPress={() =>
+                Alert.alert(
+                  "Feature Locked",
+                  "CAC validation pending for automated accounts.",
+                )
+              }
               className="w-full flex-row items-center justify-between p-4 bg-transparent border-b border-[#bccabe]/10 active:bg-[#e8e8ea]"
             >
               <View className="flex-row items-center gap-4">
                 <View className="w-10 h-10 rounded-xl bg-[#006d43]/10 flex items-center justify-center">
                   <Building size={20} color="#006d43" />
                 </View>
-                <Text className="font-bold text-[#1a1c1e] text-base">Bank Accounts</Text>
+                <Text className="font-bold text-[#1a1c1e] text-base">
+                  Bank Accounts
+                </Text>
               </View>
               <ChevronRight size={18} color="#6d7a70" />
             </Pressable>
 
             <Pressable
-              onPress={() => Alert.alert("Feature Locked", "Tax registration requires physical submission.")}
+              onPress={() =>
+                Alert.alert(
+                  "Feature Locked",
+                  "Tax registration requires physical submission.",
+                )
+              }
               className="w-full flex-row items-center justify-between p-4 bg-transparent active:bg-[#e8e8ea]"
             >
               <View className="flex-row items-center gap-4">
                 <View className="w-10 h-10 rounded-xl bg-[#006d43]/10 flex items-center justify-center">
                   <Receipt size={20} color="#006d43" />
                 </View>
-                <Text className="font-bold text-[#1a1c1e] text-base">Tax Information</Text>
+                <Text className="font-bold text-[#1a1c1e] text-base">
+                  Tax Information
+                </Text>
               </View>
               <ChevronRight size={18} color="#6d7a70" />
             </Pressable>
@@ -139,14 +164,21 @@ const ProfileTab = () => {
           </Text>
           <View className="bg-[#f3f3f6] rounded-3xl overflow-hidden">
             <Pressable
-              onPress={() => Alert.alert("Change PIN", "Secure verification code has been sent to your registered number.")}
+              onPress={() =>
+                Alert.alert(
+                  "Change PIN",
+                  "Secure verification code has been sent to your registered number.",
+                )
+              }
               className="w-full flex-row items-center justify-between p-4 bg-transparent border-b border-[#bccabe]/10 active:bg-[#e8e8ea]"
             >
               <View className="flex-row items-center gap-4">
                 <View className="w-10 h-10 rounded-xl bg-[#006d43]/10 flex items-center justify-center">
                   <Lock size={20} color="#006d43" />
                 </View>
-                <Text className="font-bold text-[#1a1c1e] text-base">Change PIN</Text>
+                <Text className="font-bold text-[#1a1c1e] text-base">
+                  Change PIN
+                </Text>
               </View>
               <ChevronRight size={18} color="#6d7a70" />
             </Pressable>
@@ -156,7 +188,9 @@ const ProfileTab = () => {
                 <View className="w-10 h-10 rounded-xl bg-[#006d43]/10 flex items-center justify-center">
                   <Fingerprint size={20} color="#006d43" />
                 </View>
-                <Text className="font-bold text-[#1a1c1e] text-base">Biometric Login</Text>
+                <Text className="font-bold text-[#1a1c1e] text-base">
+                  Biometric Login
+                </Text>
               </View>
               <Switch
                 value={biometricsEnabled}
@@ -167,14 +201,21 @@ const ProfileTab = () => {
             </View>
 
             <Pressable
-              onPress={() => Alert.alert("Devices List", "Authorized device: Tecno Phantom X2 (Active)")}
+              onPress={() =>
+                Alert.alert(
+                  "Devices List",
+                  "Authorized device: Tecno Phantom X2 (Active)",
+                )
+              }
               className="w-full flex-row items-center justify-between p-4 bg-transparent active:bg-[#e8e8ea]"
             >
               <View className="flex-row items-center gap-4">
                 <View className="w-10 h-10 rounded-xl bg-[#006d43]/10 flex items-center justify-center">
                   <User size={20} color="#006d43" />
                 </View>
-                <Text className="font-bold text-[#1a1c1e] text-base">Trusted Devices</Text>
+                <Text className="font-bold text-[#1a1c1e] text-base">
+                  Trusted Devices
+                </Text>
               </View>
               <ChevronRight size={18} color="#6d7a70" />
             </Pressable>
@@ -193,7 +234,9 @@ const ProfileTab = () => {
                   <Languages size={20} color="#006d43" />
                 </View>
                 <View>
-                  <Text className="font-bold text-[#1a1c1e] text-base">Language</Text>
+                  <Text className="font-bold text-[#1a1c1e] text-base">
+                    Language
+                  </Text>
                   <Text className="text-xs text-[#6d7a70]">English (US)</Text>
                 </View>
               </View>
@@ -201,14 +244,21 @@ const ProfileTab = () => {
             </View>
 
             <Pressable
-              onPress={() => Alert.alert("Notifications", "Push alert permissions are active.")}
+              onPress={() =>
+                Alert.alert(
+                  "Notifications",
+                  "Push alert permissions are active.",
+                )
+              }
               className="w-full flex-row items-center justify-between p-4 bg-transparent border-b border-[#bccabe]/10 active:bg-[#e8e8ea]"
             >
               <View className="flex-row items-center gap-4">
                 <View className="w-10 h-10 rounded-xl bg-[#006d43]/10 flex items-center justify-center">
                   <Bell size={20} color="#006d43" />
                 </View>
-                <Text className="font-bold text-[#1a1c1e] text-base">Notifications Settings</Text>
+                <Text className="font-bold text-[#1a1c1e] text-base">
+                  Notifications Settings
+                </Text>
               </View>
               <ChevronRight size={18} color="#6d7a70" />
             </Pressable>
@@ -219,8 +269,12 @@ const ProfileTab = () => {
                   <Sun size={20} color="#006d43" />
                 </View>
                 <View>
-                  <Text className="font-bold text-[#1a1c1e] text-base">Theme</Text>
-                  <Text className="text-xs text-[#006d43] font-bold">Light Mode</Text>
+                  <Text className="font-bold text-[#1a1c1e] text-base">
+                    Theme
+                  </Text>
+                  <Text className="text-xs text-[#006d43] font-bold">
+                    Light Mode
+                  </Text>
                 </View>
               </View>
               <ChevronRight size={18} color="#6d7a70" />
@@ -235,27 +289,41 @@ const ProfileTab = () => {
           </Text>
           <View className="bg-[#f3f3f6] rounded-3xl overflow-hidden">
             <Pressable
-              onPress={() => Alert.alert("Help Center", "WhatsApp customer helpline: +234 812 345 6789")}
+              onPress={() =>
+                Alert.alert(
+                  "Help Center",
+                  "WhatsApp customer helpline: +234 812 345 6789",
+                )
+              }
               className="w-full flex-row items-center justify-between p-4 bg-transparent border-b border-[#bccabe]/10 active:bg-[#e8e8ea]"
             >
               <View className="flex-row items-center gap-4">
                 <View className="w-10 h-10 rounded-xl bg-[#006d43]/10 flex items-center justify-center">
                   <HelpCircle size={20} color="#006d43" />
                 </View>
-                <Text className="font-bold text-[#1a1c1e] text-base">Help Center</Text>
+                <Text className="font-bold text-[#1a1c1e] text-base">
+                  Help Center
+                </Text>
               </View>
               <ChevronRight size={18} color="#6d7a70" />
             </Pressable>
 
             <Pressable
-              onPress={() => Alert.alert("Privacy Policy", "Sovereign Ledger utilizes end-to-end device database encryption.")}
+              onPress={() =>
+                Alert.alert(
+                  "Privacy Policy",
+                  "Sovereign Ledger utilizes end-to-end device database encryption.",
+                )
+              }
               className="w-full flex-row items-center justify-between p-4 bg-transparent border-b border-[#bccabe]/10 active:bg-[#e8e8ea]"
             >
               <View className="flex-row items-center gap-4">
                 <View className="w-10 h-10 rounded-xl bg-[#006d43]/10 flex items-center justify-center">
                   <ShieldAlert size={20} color="#006d43" />
                 </View>
-                <Text className="font-bold text-[#1a1c1e] text-base">Privacy Policy</Text>
+                <Text className="font-bold text-[#1a1c1e] text-base">
+                  Privacy Policy
+                </Text>
               </View>
               <ChevronRight size={18} color="#6d7a70" />
             </Pressable>
@@ -268,7 +336,9 @@ const ProfileTab = () => {
                 <View className="w-10 h-10 rounded-xl bg-[#a5393e]/10 flex items-center justify-center">
                   <LogOut size={20} color="#a5393e" />
                 </View>
-                <Text className="font-bold text-[#a5393e] text-base">Log Out</Text>
+                <Text className="font-bold text-[#a5393e] text-base">
+                  Log Out
+                </Text>
               </View>
               <ChevronRight size={18} color="#a5393e" />
             </Pressable>
@@ -277,9 +347,11 @@ const ProfileTab = () => {
 
         {/* Version branding block */}
         <View className="text-center py-6 mb-16 items-center">
-          <Text className="text-[#6d7a70] text-xs font-semibold">Oga Ledger v2.4.0</Text>
+          <Text className="text-[#6d7a70] text-xs font-semibold">
+            Oga Ledger v2.4.0
+          </Text>
           <Text className="text-[#6d7a70]/40 text-[9px] mt-1 uppercase tracking-widest font-bold">
-            Powered by Sovereign Tech
+            Powered by JayBobo Tech
           </Text>
         </View>
       </ScrollView>

@@ -5,10 +5,10 @@ import {
   Dimensions,
   FlatList,
   ListRenderItem,
-  Pressable,
   Text,
   View,
 } from "react-native";
+import { Button, ButtonText } from "@/components/ui/button";
 import { Wallet, TrendingUp, Users } from "lucide-react-native";
 
 const { width } = Dimensions.get("window");
@@ -96,27 +96,27 @@ const MyCarousel = () => {
         </Text>
 
         {item.id === "3" ? (
-          <Link href="/home" asChild>
-            <Pressable className="w-full bg-[#006d43] active:bg-[#005232] h-14 rounded-2xl items-center justify-center shadow-lg shadow-[#005232]/20">
-              <Text className="text-white text-lg font-bold">
+          <Link href="/login" asChild>
+            <Button className="w-full bg-[#006d43] active:bg-[#005232] h-14 rounded-2xl shadow-lg shadow-[#005232]/20">
+              <ButtonText className="text-white text-lg font-bold">
                 Get Started
-              </Text>
-            </Pressable>
+              </ButtonText>
+            </Button>
           </Link>
         ) : (
-          <Pressable
+          <Button
             onPress={() => {
               flatListRef.current?.scrollToIndex({
                 index: activeIndex + 1,
                 animated: true,
               });
             }}
-            className="w-full bg-white border border-[#bccabe]/30 h-14 rounded-2xl items-center justify-center"
+            className="w-full bg-white border border-[#bccabe]/30 h-14 rounded-2xl"
           >
-            <Text className="text-[#006d43] text-lg font-semibold">
+            <ButtonText className="text-[#006d43] text-lg font-semibold">
               Continue
-            </Text>
-          </Pressable>
+            </ButtonText>
+          </Button>
         )}
       </View>
     </View>
