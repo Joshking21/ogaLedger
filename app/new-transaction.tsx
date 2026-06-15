@@ -1,25 +1,25 @@
-import {
-    BookOpen,
-    Calendar,
-    Camera,
-    CheckCircle2,
-    FileText,
-    User,
-    Wallet,
-    X
-} from "lucide-react-native";
 import { useRouter } from "expo-router";
+import {
+  BookOpen,
+  Calendar,
+  Camera,
+  CheckCircle2,
+  FileText,
+  User,
+  Wallet,
+  X,
+} from "lucide-react-native";
 import React, { useState } from "react";
 import {
-    Alert,
-    KeyboardAvoidingView,
-    Platform,
-    Pressable,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TextInput,
-    View,
+  Alert,
+  KeyboardAvoidingView,
+  Platform,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useApp } from "../context/AppContext";
@@ -44,7 +44,6 @@ const NewTransaction = () => {
       );
       return;
     }
-
     if (type === "expense" && !expense.trim()) {
       Alert.alert(
         "Missing Title",
@@ -52,7 +51,6 @@ const NewTransaction = () => {
       );
       return;
     }
-
     addTransaction({
       title:
         type === "sale"
@@ -65,7 +63,6 @@ const NewTransaction = () => {
       customerName: type === "debt" ? customerName || undefined : undefined,
       description: description || undefined,
     });
-
     Alert.alert(
       "Success",
       `Recorded transaction of ₦${numAmount.toLocaleString()} successfully.`,
@@ -85,27 +82,28 @@ const NewTransaction = () => {
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      {/* Decorative background blur */}
+      {/* Decorative background blob */}
       <View
         pointerEvents="none"
         style={[styles.bgBlob, { backgroundColor: bgBlurColor }]}
       />
 
-      {/* Top Header App Bar */}
+      {/* Header */}
       <View style={styles.header}>
         <View style={styles.headerLeft}>
           <Pressable
             onPress={() => router.back()}
-            style={({ pressed }) => [styles.closeBtn, pressed && styles.closeBtnPressed]}
+            style={({ pressed }) => [
+              styles.closeBtn,
+              pressed && styles.closeBtnPressed,
+            ]}
           >
             <X size={24} color="#6d7a70" />
           </Pressable>
-
           <Text style={[styles.headerTitle, { color: themeColor }]}>
             New Transaction
           </Text>
         </View>
-
         <View style={styles.headerRight}>
           <Text style={styles.draftText}>Draft saved</Text>
           <View style={styles.draftDot} />
@@ -121,7 +119,7 @@ const NewTransaction = () => {
           contentContainerStyle={styles.scrollContent}
           style={styles.flex1}
         >
-          {/* Amount Entry Area */}
+          {/* Amount Entry */}
           <View style={styles.amountArea}>
             <Text style={styles.amountLabel}>
               {type === "expense" ? "Amount Spent" : "Amount Received"}
@@ -142,7 +140,7 @@ const NewTransaction = () => {
             </View>
           </View>
 
-          {/* Segmented Control Selector: Cash Sale vs Debt vs Expense */}
+          {/* Segmented Control */}
           <View style={styles.segmentContainer}>
             <Pressable
               onPress={() => setType("sale")}
@@ -205,7 +203,7 @@ const NewTransaction = () => {
             </Pressable>
           </View>
 
-          {/* Details Form fields */}
+          {/* Form Fields */}
           <View style={styles.fieldsContainer}>
             {type === "sale" ? (
               <View>
@@ -251,7 +249,7 @@ const NewTransaction = () => {
               </View>
             )}
 
-            {/* Description / Notes */}
+            {/* Description */}
             <View>
               <Text style={styles.fieldLabel}>
                 {type === "expense"
@@ -276,7 +274,7 @@ const NewTransaction = () => {
               </View>
             </View>
 
-            {/* Date Picker row */}
+            {/* Date Row */}
             <View style={styles.dateRow}>
               <View style={styles.dateLeft}>
                 <View style={styles.dateIconWrap}>
@@ -299,7 +297,7 @@ const NewTransaction = () => {
             </View>
           </View>
 
-          {/* Photo attachment box */}
+          {/* Photo Box */}
           <Pressable
             onPress={() =>
               Alert.alert(
@@ -320,7 +318,7 @@ const NewTransaction = () => {
         </ScrollView>
       </KeyboardAvoidingView>
 
-      {/* Floating Save button wrapper */}
+      {/* Floating Save Button */}
       <View style={styles.saveWrapper}>
         <Pressable
           onPress={handleSave}
@@ -335,13 +333,8 @@ const NewTransaction = () => {
 };
 
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: "#f9f9fc",
-  },
-  flex1: {
-    flex: 1,
-  },
+  safeArea: { flex: 1, backgroundColor: "#f9f9fc" },
+  flex1: { flex: 1 },
   bgBlob: {
     position: "absolute",
     top: 0,
@@ -349,7 +342,6 @@ const styles = StyleSheet.create({
     width: 320,
     height: 320,
     borderRadius: 160,
-    pointerEvents: "none",
   },
   header: {
     flexDirection: "row",
@@ -362,47 +354,20 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(255,255,255,0.8)",
     zIndex: 10,
   },
-  headerLeft: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 12,
-  },
-  closeBtn: {
-    padding: 4,
-    borderRadius: 999,
-  },
-  closeBtnPressed: {
-    backgroundColor: "#f1f5f4",
-  },
-  headerTitle: {
-    fontWeight: "800",
-    fontSize: 20,
-  },
-  headerRight: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 8,
-  },
-  draftText: {
-    fontSize: 12,
-    color: "#6d7a70",
-    fontWeight: "700",
-  },
+  headerLeft: { flexDirection: "row", alignItems: "center", gap: 12 },
+  closeBtn: { padding: 4, borderRadius: 999 },
+  closeBtnPressed: { backgroundColor: "#f1f5f4" },
+  headerTitle: { fontWeight: "800", fontSize: 20 },
+  headerRight: { flexDirection: "row", alignItems: "center", gap: 8 },
+  draftText: { fontSize: 12, color: "#6d7a70", fontWeight: "700" },
   draftDot: {
     width: 10,
     height: 10,
     borderRadius: 5,
     backgroundColor: "#00a86b",
   },
-  scrollContent: {
-    paddingHorizontal: 24,
-    paddingTop: 24,
-    paddingBottom: 120,
-  },
-  amountArea: {
-    alignItems: "center",
-    paddingVertical: 24,
-  },
+  scrollContent: { paddingHorizontal: 24, paddingTop: 24, paddingBottom: 120 },
+  amountArea: { alignItems: "center", paddingVertical: 24 },
   amountLabel: {
     color: "#6d7a70",
     fontSize: 12,
@@ -418,10 +383,7 @@ const styles = StyleSheet.create({
     gap: 6,
     width: "100%",
   },
-  currencySymbol: {
-    fontWeight: "800",
-    fontSize: 36,
-  },
+  currencySymbol: { fontWeight: "800", fontSize: 36 },
   amountInput: {
     fontWeight: "800",
     fontSize: 48,
@@ -458,14 +420,8 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 2,
   },
-  segmentLabel: {
-    fontSize: 12,
-    fontWeight: "700",
-  },
-  fieldsContainer: {
-    gap: 24,
-    marginBottom: 32,
-  },
+  segmentLabel: { fontSize: 12, fontWeight: "700" },
+  fieldsContainer: { gap: 24, marginBottom: 32 },
   fieldLabel: {
     fontSize: 11,
     fontWeight: "700",
@@ -485,9 +441,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "rgba(188,202,190,0.1)",
   },
-  inputRowTop: {
-    alignItems: "flex-start",
-  },
+  inputRowTop: { alignItems: "flex-start" },
   textInput: {
     flex: 1,
     marginLeft: 12,
@@ -495,10 +449,7 @@ const styles = StyleSheet.create({
     color: "#1a1c1e",
     fontWeight: "500",
   },
-  multilineInput: {
-    textAlignVertical: "top",
-    minHeight: 60,
-  },
+  multilineInput: { textAlignVertical: "top", minHeight: 60 },
   dateRow: {
     flexDirection: "row",
     alignItems: "center",
@@ -506,11 +457,7 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 4,
   },
-  dateLeft: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 12,
-  },
+  dateLeft: { flexDirection: "row", alignItems: "center", gap: 12 },
   dateIconWrap: {
     width: 40,
     height: 40,
@@ -519,20 +466,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  dateLabelText: {
-    fontSize: 12,
-    color: "#6d7a70",
-    fontWeight: "600",
-  },
-  dateValue: {
-    fontSize: 14,
-    fontWeight: "700",
-    color: "#1a1c1e",
-  },
-  changeBtn: {
-    fontWeight: "700",
-    fontSize: 14,
-  },
+  dateLabelText: { fontSize: 12, color: "#6d7a70", fontWeight: "600" },
+  dateValue: { fontSize: 14, fontWeight: "700", color: "#1a1c1e" },
+  changeBtn: { fontWeight: "700", fontSize: 14 },
   photoBox: {
     width: "100%",
     flexDirection: "row",
@@ -546,11 +482,7 @@ const styles = StyleSheet.create({
     borderRadius: 24,
     backgroundColor: "rgba(243,243,246,0.4)",
   },
-  photoBoxText: {
-    fontWeight: "700",
-    fontSize: 14,
-    color: "#6d7a70",
-  },
+  photoBoxText: { fontWeight: "700", fontSize: 14, color: "#6d7a70" },
   saveWrapper: {
     position: "absolute",
     bottom: 0,
@@ -574,11 +506,7 @@ const styles = StyleSheet.create({
     shadowRadius: 8,
     elevation: 4,
   },
-  saveBtnText: {
-    color: "#ffffff",
-    fontWeight: "700",
-    fontSize: 18,
-  },
+  saveBtnText: { color: "#ffffff", fontWeight: "700", fontSize: 18 },
 });
 
 export default NewTransaction;

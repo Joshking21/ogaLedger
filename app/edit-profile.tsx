@@ -1,17 +1,24 @@
+import { Button, ButtonText } from "@/components/ui/button";
+import { useRouter } from "expo-router";
+import { ArrowLeft, Camera, ChevronRight, Trash2 } from "lucide-react-native";
 import React, { useState } from "react";
 import {
-  Text,
-  View,
-  TextInput,
+  Alert,
+  Image,
   Pressable,
   ScrollView,
-  Alert,
+  Text,
+  TextInput,
+  View,
 } from "react-native";
-import { Button, ButtonText } from "@/components/ui/button";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useRouter } from "expo-router";
 import { useApp } from "../context/AppContext";
-import { ArrowLeft, Camera, ChevronRight, Trash2, ShieldAlert } from "lucide-react-native";
+// import React, { useState } from "react";
+// import { View, Text, Pressable, Image, Alert } from "react-native";
+// 👑 Import both functions straight from ImagePicker
+import { useProfile } from "@/store/useStore";
+import * as ImagePicker from "expo-image-picker";
+// import { Camera, User } from "lucide-react-native";
 
 const EditProfile = () => {
   const router = useRouter();
@@ -22,6 +29,7 @@ const EditProfile = () => {
   const [phone, setPhone] = useState(businessProfile.phone);
   const [address, setAddress] = useState(businessProfile.address);
   const [avatar, setAvatar] = useState(businessProfile.avatar);
+  const [{ profileUrl }, { setProfileUrl }] = useProfile();
 
   const [focusedField, setFocusedField] = useState<string | null>(null);
 
@@ -37,16 +45,62 @@ const EditProfile = () => {
       address,
       avatar,
     });
-    Alert.alert("Profile Updated", "Your business profile changes have been saved.", [
-      { text: "OK", onPress: () => router.back() }
-    ]);
+    Alert.alert(
+      "Profile Updated",
+      "Your business profile changes have been saved.",
+      [{ text: "OK", onPress: () => router.back() }],
+    );
+  };
+
+  // const [logoUri, setLogoUri] = useState<string | null>(null);
+
+  // 1. Core Action: Open Phone Gallery
+  const chooseFromGallery = async () => {
+    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (status !== "granted") {
+      Alert.alert("Permission Denied", "Gallery access is required.");
+      return;
+    }
+
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ["images"],
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 0.6,
+    });
+
+    if (!result.canceled) {
+      // setLogoUri(result.assets[0].uri);
+      setProfileUrl(result.assets[0].uri);
+    }
+  };
+
+  // 2. Core Action: Open Phone Camera
+  const takeNewPhoto = async () => {
+    const { status } = await ImagePicker.requestCameraPermissionsAsync();
+    if (status !== "granted") {
+      Alert.alert("Permission Denied", "Camera access is required.");
+      return;
+    }
+
+    const result = await ImagePicker.launchCameraAsync({
+      mediaTypes: ["images"],
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 0.6,
+    });
+
+    if (!result.canceled) {
+      // setLogoUri(result.assets[0].uri);
+      setProfileUrl(result.assets[0].uri);
+    }
   };
 
   const handleAvatarChange = () => {
     Alert.alert("Update Logo", "Select new business identity cover photo.", [
-      { text: "Choose from Gallery", onPress: () => {} },
-      { text: "Take a Photo", onPress: () => {} },
-      { text: "Cancel", style: "cancel" }
+      { text: "Choose from Gallery", onPress: chooseFromGallery },
+      { text: "Take a Photo", onPress: takeNewPhoto },
+      { text: "Cancel", style: "cancel" },
     ]);
   };
 
@@ -56,6 +110,7 @@ const EditProfile = () => {
     { label: "Hospitality & Food", value: "hospitality" },
     { label: "Professional Services", value: "tech" },
   ];
+  // console.log(logoUri);
 
   return (
     <SafeAreaView className="flex-1 bg-[#f9f9fc]">
@@ -77,24 +132,35 @@ const EditProfile = () => {
           onPress={handleSave}
           className="px-4 py-2 rounded-xl bg-[#006d43]/10 active:bg-[#006d43]/20"
         >
-          <ButtonText className="text-[#006d43] font-bold text-sm">Save</ButtonText>
+          <ButtonText className="text-[#006d43] font-bold text-sm">
+            Save
+          </ButtonText>
         </Button>
       </View>
 
       <ScrollView
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingHorizontal: 24, paddingTop: 20, paddingBottom: 60 }}
+        contentContainerStyle={{
+          paddingHorizontal: 24,
+          paddingTop: 20,
+          paddingBottom: 60,
+        }}
         className="flex-1"
       >
         {/* Business Logo Section */}
         <View className="items-center mb-8">
           <View className="relative">
             <View className="w-32 h-32 rounded-full overflow-hidden bg-[#e8e8ea] border-4 border-[#006d43]/15 shadow-sm">
-              {/* <img
-                src={avatar}
-                className="w-full h-full object-cover"
-                alt="Business Logo"
-              /> */}
+              {profileUrl ? (
+                <Image
+                  source={{ uri: profileUrl }}
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <View className="flex-1 items-center justify-center">
+                  <Camera size={32} color="#666" />
+                </View>
+              )}
             </View>
             <Pressable
               onPress={handleAvatarChange}
@@ -117,7 +183,9 @@ const EditProfile = () => {
           <View>
             <View
               className={`bg-[#e8e8ea] rounded-2xl px-4 pt-6 pb-2.5 border-b-2 ${
-                focusedField === "name" ? "border-[#006d43]" : "border-transparent"
+                focusedField === "name"
+                  ? "border-[#006d43]"
+                  : "border-transparent"
               }`}
             >
               <Text className="absolute left-4 top-2 text-[9px] uppercase tracking-wider font-extrabold text-[#6d7a70]">
@@ -172,7 +240,9 @@ const EditProfile = () => {
           <View>
             <View
               className={`bg-[#e8e8ea] rounded-2xl px-4 pt-6 pb-2.5 border-b-2 ${
-                focusedField === "phone" ? "border-[#006d43]" : "border-transparent"
+                focusedField === "phone"
+                  ? "border-[#006d43]"
+                  : "border-transparent"
               }`}
             >
               <Text className="absolute left-4 top-2 text-[9px] uppercase tracking-wider font-extrabold text-[#6d7a70]">
@@ -198,7 +268,9 @@ const EditProfile = () => {
           <View>
             <View
               className={`bg-[#e8e8ea] rounded-2xl px-4 pt-6 pb-2.5 border-b-2 ${
-                focusedField === "address" ? "border-[#006d43]" : "border-transparent"
+                focusedField === "address"
+                  ? "border-[#006d43]"
+                  : "border-transparent"
               }`}
             >
               <Text className="absolute left-4 top-2 text-[9px] uppercase tracking-wider font-extrabold text-[#6d7a70]">
@@ -224,10 +296,14 @@ const EditProfile = () => {
           </Text>
           <View className="gap-3">
             <Pressable
-              onPress={() => Alert.alert("Feature Locked", "CAC check required for updates.")}
+              onPress={() =>
+                Alert.alert("Feature Locked", "CAC check required for updates.")
+              }
               className="flex-row items-center justify-between p-4 bg-white rounded-2xl active:bg-slate-50 border border-[#bccabe]/10"
             >
-              <Text className="font-bold text-[#1a1c1e] text-sm">Change Password</Text>
+              <Text className="font-bold text-[#1a1c1e] text-sm">
+                Change Password
+              </Text>
               <ChevronRight size={16} color="#6d7a70" />
             </Pressable>
 
@@ -238,13 +314,19 @@ const EditProfile = () => {
                   "Are you sure you want to delete all local ledger database files? This cannot be undone.",
                   [
                     { text: "Cancel", style: "cancel" },
-                    { text: "Delete", style: "destructive", onPress: () => router.replace("/") },
-                  ]
+                    {
+                      text: "Delete",
+                      style: "destructive",
+                      onPress: () => router.replace("/"),
+                    },
+                  ],
                 );
               }}
               className="flex-row items-center justify-between p-4 bg-white rounded-2xl active:bg-red-50 border border-[#bccabe]/10"
             >
-              <Text className="font-bold text-[#a5393e] text-sm">Delete Ledger Data</Text>
+              <Text className="font-bold text-[#a5393e] text-sm">
+                Delete Ledger Data
+              </Text>
               <Trash2 size={16} color="#a5393e" />
             </Pressable>
           </View>
