@@ -78,8 +78,8 @@ const MyCarousel = () => {
       className="flex-1 justify-between items-center px-8 pt-12 pb-6 bg-[#f9f9fc]"
     >
       {/* Decorative Blur Backgrounds */}
-      <View className="absolute top-0 right-0 w-80 h-80 bg-emerald-100/30 rounded-full blur-[80px]" />
-      <View className="absolute bottom-20 left-0 w-64 h-64 bg-slate-200/40 rounded-full blur-[60px]" />
+      <View pointerEvents="none" className="absolute top-0 right-0 w-80 h-80 bg-emerald-100/30 rounded-full blur-[80px]" />
+      <View pointerEvents="none" className="absolute bottom-20 left-0 w-64 h-64 bg-slate-200/40 rounded-full blur-[60px]" />
 
       {/* Illustration */}
       <View className="flex-1 justify-center items-center z-10">

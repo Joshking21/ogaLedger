@@ -32,7 +32,9 @@ export interface BusinessProfile {
 
 interface AppContextType {
   transactions: Transaction[];
-  addTransaction: (tx: Omit<Transaction, "id" | "timestamp" | "date" | "status">) => void;
+  addTransaction: (
+    tx: Omit<Transaction, "id" | "timestamp" | "date" | "status">,
+  ) => void;
   deleteTransaction: (id: string) => void;
   debtors: Debtor[];
   sendReminder: (debtorId: string) => void;
@@ -73,7 +75,8 @@ const INITIAL_TRANSACTIONS: Transaction[] = [
     type: "expense",
     date: "Oct 24",
     timestamp: new Date("2025-10-24T12:00:00.000Z").toISOString(),
-    description: "Annual store rental payment contribution for Victoria Island location.",
+    description:
+      "Annual store rental payment contribution for Victoria Island location.",
     status: "paid",
   },
   {
@@ -117,7 +120,8 @@ const INITIAL_DEBTORS: Debtor[] = [
     name: "Ibrahim K.",
     amountOwed: 24500,
     phone: "0803 123 4567",
-    avatar: "https://lh3.googleusercontent.com/aida-public/AB6AXuD5LIb-aT-BP7NExTet2om2yCU00ZUPFwqXUmre86ziDpJdGVQRXUep-xYHjvsc-Dj5nqItu-WRk88CdRS-pbUUSXIoAlyLru2nULgszL4F2OJsALxRk5ZMVu5Iuxcb1-ib3h53hTACDsXjBwZrcvaA_vfBi6ps-xTk5pFBdzmGwLyNUMFSBXGvoad3XptNowSUHgfTPPstbMtB4HtEqj2zfPeA8Acs_E4pLvO2-aYU9pCO7FUAi6ovCjgdBdrFt4fDzI-uCcTaO3o",
+    avatar:
+      "https://lh3.googleusercontent.com/aida-public/AB6AXuD5LIb-aT-BP7NExTet2om2yCU00ZUPFwqXUmre86ziDpJdGVQRXUep-xYHjvsc-Dj5nqItu-WRk88CdRS-pbUUSXIoAlyLru2nULgszL4F2OJsALxRk5ZMVu5Iuxcb1-ib3h53hTACDsXjBwZrcvaA_vfBi6ps-xTk5pFBdzmGwLyNUMFSBXGvoad3XptNowSUHgfTPPstbMtB4HtEqj2zfPeA8Acs_E4pLvO2-aYU9pCO7FUAi6ovCjgdBdrFt4fDzI-uCcTaO3o",
     overdueDays: 1,
   },
   {
@@ -125,7 +129,8 @@ const INITIAL_DEBTORS: Debtor[] = [
     name: "Funmi A.",
     amountOwed: 59700,
     phone: "0815 987 6543",
-    avatar: "https://lh3.googleusercontent.com/aida-public/AB6AXuDINZUViKOUEyVDFCWPTC4XyaZwtvS1RI76E2wyDXGActNTMVsZlukjesLZ3a0kzjqwov5jY85-LiZMnGqBSGdMARVdmbGgEE5jXzpobwFzMCNPrsUHGYqTqmHOIpm-KmI74Gk7ohtUkl7m_F5RMZaN7iCrZ50Kbjf2sZWeW2I7Hl8NuaOEfaQycNq2pZuGtiNEvMwLy9bWJolbJ1iTyigjTpo_Q0Wv5nK--a-3_gDcfSQflP2CXlqT12heGaadp3AGhJue0V32mOA",
+    avatar:
+      "https://lh3.googleusercontent.com/aida-public/AB6AXuDINZUViKOUEyVDFCWPTC4XyaZwtvS1RI76E2wyDXGActNTMVsZlukjesLZ3a0kzjqwov5jY85-LiZMnGqBSGdMARVdmbGgEE5jXzpobwFzMCNPrsUHGYqTqmHOIpm-KmI74Gk7ohtUkl7m_F5RMZaN7iCrZ50Kbjf2sZWeW2I7Hl8NuaOEfaQycNq2pZuGtiNEvMwLy9bWJolbJ1iTyigjTpo_Q0Wv5nK--a-3_gDcfSQflP2CXlqT12heGaadp3AGhJue0V32mOA",
     overdueDays: 3,
   },
   {
@@ -133,7 +138,8 @@ const INITIAL_DEBTORS: Debtor[] = [
     name: "Chidi N.",
     amountOwed: 100000,
     phone: "0706 444 8888",
-    avatar: "https://lh3.googleusercontent.com/aida-public/AB6AXuBIuy4jixsqeD6Nj0OPPKmRjfFvZjS5oLaPJo_28k5SEWdALhczva_9Fs-XEn9FOUA2mxg4FuGhKo2xbwJD2PPnG06li3P37roLm2_C8sLZ1ZGLyCA4WV2fpxMo0QOFAWjrTPBE29k3ASLp6Ft2n757vGn2sxBfzrPULMFSmy04s1wFtBYGC2AScF7JF_3NWBGYxxcq79iF0D7opeXKs1agjZs2R-aFGr9_U58xQQ8KV1jAPq_EqRJZ2ehJtJe1i1b8yX9NK6WfaQQ",
+    avatar:
+      "https://lh3.googleusercontent.com/aida-public/AB6AXuBIuy4jixsqeD6Nj0OPPKmRjfFvZjS5oLaPJo_28k5SEWdALhczva_9Fs-XEn9FOUA2mxg4FuGhKo2xbwJD2PPnG06li3P37roLm2_C8sLZ1ZGLyCA4WV2fpxMo0QOFAWjrTPBE29k3ASLp6Ft2n757vGn2sxBfzrPULMFSmy04s1wFtBYGC2AScF7JF_3NWBGYxxcq79iF0D7opeXKs1agjZs2R-aFGr9_U58xQQ8KV1jAPq_EqRJZ2ehJtJe1i1b8yX9NK6WfaQQ",
     overdueDays: 5,
   },
 ];
@@ -143,19 +149,29 @@ const INITIAL_PROFILE: BusinessProfile = {
   category: "retail",
   phone: "803 123 4567",
   address: "12, Victoria Island Crescent, Lagos State, Nigeria.",
-  avatar: "https://lh3.googleusercontent.com/aida-public/AB6AXuCOKCBKKGl6KY2twZa30U7k3mPqk3v4B16ADWnqwSV8K20ejgbZKstwVKPOCZpcr8O4dd4vMqhAZz-HvIJD4bdnvSO5zQlQ4Ovaj-3EdJcQsITUfCsLL98MGn6x7WirTClvOZr8zQKvZcV71X0-r4_9j_4JEV5RB9JIurNvgIk9ueQgp9L-1AWBw3cv50YUnS1v2VaqIm0plObqpirt7wtY1pcNdtdm37dgN6ZN-lM_G_OuiMay1B9DaJbQq5-13EsIOh6J6x1OAhI",
+  avatar:
+    "https://lh3.googleusercontent.com/aida-public/AB6AXuCOKCBKKGl6KY2twZa30U7k3mPqk3v4B16ADWnqwSV8K20ejgbZKstwVKPOCZpcr8O4dd4vMqhAZz-HvIJD4bdnvSO5zQlQ4Ovaj-3EdJcQsITUfCsLL98MGn6x7WirTClvOZr8zQKvZcV71X0-r4_9j_4JEV5RB9JIurNvgIk9ueQgp9L-1AWBw3cv50YUnS1v2VaqIm0plObqpirt7wtY1pcNdtdm37dgN6ZN-lM_G_OuiMay1B9DaJbQq5-13EsIOh6J6x1OAhI",
 };
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [transactions, setTransactions] = useState<Transaction[]>(INITIAL_TRANSACTIONS);
+  const [transactions, setTransactions] =
+    useState<Transaction[]>(INITIAL_TRANSACTIONS);
   const [debtors, setDebtors] = useState<Debtor[]>(INITIAL_DEBTORS);
-  const [businessProfile, setBusinessProfile] = useState<BusinessProfile>(INITIAL_PROFILE);
+  const [businessProfile, setBusinessProfile] =
+    useState<BusinessProfile>(INITIAL_PROFILE);
 
-  const addTransaction = (tx: Omit<Transaction, "id" | "timestamp" | "date" | "status">) => {
+  const addTransaction = (
+    tx: Omit<Transaction, "id" | "timestamp" | "date" | "status">,
+  ) => {
     const id = `tx-${Math.random().toString(36).substr(2, 9)}`;
-    const status: Transaction["status"] = tx.type === "debt" ? "owed" : tx.type === "expense" ? "paid" : "completed";
+    const status: Transaction["status"] =
+      tx.type === "debt"
+        ? "owed"
+        : tx.type === "expense"
+          ? "paid"
+          : "completed";
     const newTx: Transaction = {
       ...tx,
       id,
@@ -170,12 +186,14 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
     if (tx.type === "debt") {
       const debtorName = tx.customerName || "Unnamed Debtor";
       setDebtors((prev) => {
-        const existing = prev.find((d) => d.name.toLowerCase() === debtorName.toLowerCase());
+        const existing = prev.find(
+          (d) => d.name.toLowerCase() === debtorName.toLowerCase(),
+        );
         if (existing) {
           return prev.map((d) =>
             d.id === existing.id
               ? { ...d, amountOwed: d.amountOwed + tx.amount }
-              : d
+              : d,
           );
         } else {
           return [
@@ -185,7 +203,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
               name: debtorName,
               amountOwed: tx.amount,
               phone: "0800 000 0000",
-              avatar: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=120&auto=format&fit=crop&q=60",
+              avatar:
+                "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=120&auto=format&fit=crop&q=60",
               overdueDays: 0,
             },
           ];
@@ -203,11 +222,14 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
         prev
           .map((d) => {
             if (d.name.toLowerCase() === debtorName.toLowerCase()) {
-              return { ...d, amountOwed: Math.max(0, d.amountOwed - target.amount) };
+              return {
+                ...d,
+                amountOwed: Math.max(0, d.amountOwed - target.amount),
+              };
             }
             return d;
           })
-          .filter((d) => d.amountOwed > 0)
+          .filter((d) => d.amountOwed > 0),
       );
     }
     setTransactions((prev) => prev.filter((t) => t.id !== id));

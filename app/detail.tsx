@@ -32,6 +32,7 @@ const TransactionDetail = () => {
 
   const isSale = transaction.type === "sale";
   const isDebt = transaction.type === "debt";
+  const isExpense = transaction.type === "expense";
 
   let tintText = "text-[#1a1c1e]";
   let glowBg = "bg-slate-100";
@@ -44,6 +45,10 @@ const TransactionDetail = () => {
   } else if (isDebt) {
     tintText = "text-[#a5393e]";
     glowBg = "bg-[#a5393e]/5";
+    displayAmount = `-₦${transaction.amount.toLocaleString()}`;
+  } else if (isExpense) {
+    tintText = "text-[#d97706]";
+    glowBg = "bg-[#d97706]/5";
     displayAmount = `-₦${transaction.amount.toLocaleString()}`;
   }
 

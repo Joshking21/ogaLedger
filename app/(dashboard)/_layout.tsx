@@ -1,6 +1,6 @@
 import React from "react";
 import { Tabs } from "expo-router";
-import { House, Wallet, Users, Settings } from "@/components/icons";
+import { House, Wallet, Users, Settings } from "lucide-react-native";
 
 const DashboardLayout = () => {
   return (
@@ -19,7 +19,7 @@ const DashboardLayout = () => {
           paddingTop: 10,
           elevation: 8,
           shadowColor: "#005232", // Ambient Green Shadow
-          shadowOpacity: 0.06,
+          shadowOpacity: 0.1,
           shadowRadius: 24,
           shadowOffset: { width: 0, height: -8 },
         },

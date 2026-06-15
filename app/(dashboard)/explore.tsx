@@ -41,6 +41,7 @@ const ExploreTab = () => {
   const renderTransactionItem = ({ item }: { item: Transaction }) => {
     const isSale = item.type === "sale";
     const isDebt = item.type === "debt";
+    const isExpense = item.type === "expense";
 
     let glowBg = "bg-slate-100";
     let tintText = "text-[#1a1c1e]";
@@ -54,8 +55,10 @@ const ExploreTab = () => {
       glowBg = "bg-[#a5393e]/5";
       tintText = "text-[#a5393e]";
       displayAmount = `-₦${item.amount.toLocaleString()}`;
-    } else {
-      displayAmount = `₦${item.amount.toLocaleString()}`;
+    } else if (isExpense) {
+      glowBg = "bg-[#d97706]/5";
+      tintText = "text-[#d97706]";
+      displayAmount = `-₦${item.amount.toLocaleString()}`;
     }
 
     return (

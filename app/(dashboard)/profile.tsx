@@ -1,3 +1,4 @@
+import { useProfile } from "@/store/useStore";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Image } from "expo-image";
 import { useRouter } from "expo-router";
@@ -26,6 +27,7 @@ const ProfileTab = () => {
   const router = useRouter();
   const { businessProfile } = useApp();
   const [biometricsEnabled, setBiometricsEnabled] = useState(true);
+  const [{ name, shopName }, { setName, setShopName }] = useProfile();
 
   const handleLogout = () => {
     Alert.alert(
@@ -73,6 +75,7 @@ const ProfileTab = () => {
             </View>
             <Pressable
               onPress={() => router.push("/edit-profile")}
+              
               className="absolute bottom-0 right-0 bg-[#006d43] p-1.5 rounded-full border-2 border-white active:scale-90"
             >
               <Text className="text-[9px] font-bold text-white uppercase px-0.5">
@@ -83,12 +86,15 @@ const ProfileTab = () => {
 
           <View className="flex-1">
             <Text className="text-2xl font-extrabold text-[#1a1c1e] tracking-tight">
-              Chukwuma O.
+              {name?.split(" ")[0] +
+                " " +
+                name?.split(" ")[1].slice(0, 1) +
+                "."}
             </Text>
             <View className="flex-row items-center gap-1.5 mt-1">
               <Building size={14} color="#006d43" />
               <Text className="text-[#006d43] font-semibold text-sm">
-                {businessProfile.name}
+                {shopName} Enterprise
               </Text>
             </View>
           </View>

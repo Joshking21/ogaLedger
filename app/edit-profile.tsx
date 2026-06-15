@@ -90,11 +90,11 @@ const EditProfile = () => {
         <View className="items-center mb-8">
           <View className="relative">
             <View className="w-32 h-32 rounded-full overflow-hidden bg-[#e8e8ea] border-4 border-[#006d43]/15 shadow-sm">
-              <img
+              {/* <img
                 src={avatar}
                 className="w-full h-full object-cover"
                 alt="Business Logo"
-              />
+              /> */}
             </View>
             <Pressable
               onPress={handleAvatarChange}

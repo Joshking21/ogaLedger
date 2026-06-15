@@ -29,7 +29,21 @@
     },
     "plugins": [
       "expo-font",
-      "expo-secure-store"
+      "expo-secure-store",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app needs access to your photos to attach receipts.",
+          "cameraPermission": "The app needs access to your camera to take receipt photos."
+        }
+      ],
+      [
+        "expo-media-library",
+        {
+          "photosPermission": "Grant permission to save photos to your gallery.",
+          "savePhotosPermission": "Grant permission to save photos to your gallery."
+        }
+      ]
     ]
   }
 }
