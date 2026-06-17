@@ -33,7 +33,10 @@ export interface BusinessProfile {
 interface AppContextType {
   transactions: Transaction[];
   addTransaction: (
-    tx: Omit<Transaction, "id" | "timestamp" | "date" | "status">,
+    tx: Omit<Transaction, "id" | "timestamp" | "date" | "status"> & {
+      timestamp?: string;
+      date?: string;
+    },
   ) => void;
   deleteTransaction: (id: string) => void;
   debtors: Debtor[];
@@ -163,7 +166,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
     useState<BusinessProfile>(INITIAL_PROFILE);
 
   const addTransaction = (
-    tx: Omit<Transaction, "id" | "timestamp" | "date" | "status">,
+    tx: Omit<Transaction, "id" | "timestamp" | "date" | "status"> & {
+      timestamp?: string;
+      date?: string;
+    },
   ) => {
     const id = `tx-${Math.random().toString(36).substr(2, 9)}`;
     const status: Transaction["status"] =
@@ -175,8 +181,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
     const newTx: Transaction = {
       ...tx,
       id,
-      timestamp: new Date().toISOString(),
-      date: "Just now",
+      timestamp: tx.timestamp || new Date().toISOString(),
+      date: tx.date || "Just now",
       status,
     };
 

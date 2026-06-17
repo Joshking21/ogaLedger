@@ -76,8 +76,14 @@ const SignUp = () => {
         className="flex-1 justify-center px-6"
       >
         {/* Background decorative blurs */}
-        <View pointerEvents="none" className="absolute top-0 right-0 w-80 h-80 bg-emerald-100/30 rounded-full blur-[80px]" />
-        <View pointerEvents="none" className="absolute bottom-20 left-0 w-64 h-64 bg-slate-200/40 rounded-full blur-[60px]" />
+        <View
+          pointerEvents="none"
+          className="absolute top-0 right-0 w-80 h-80 bg-emerald-100/30 rounded-full blur-[80px]"
+        />
+        <View
+          pointerEvents="none"
+          className="absolute bottom-20 left-0 w-64 h-64 bg-slate-200/40 rounded-full blur-[60px]"
+        />
 
         {/* Brand details */}
         <View className="mb-10">
@@ -85,7 +91,7 @@ const SignUp = () => {
             Oga Ledger
           </Text>
           <Text className="text-sm text-[#6d7a70] font-semibold uppercase mt-1 tracking-wider">
-            Register your Sovereign Business
+            Register your Oga Business
           </Text>
         </View>
 

@@ -1,6 +1,6 @@
 import { useProfile } from "@/store/useStore";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Image } from "expo-image";
+// import { Image } from "expo-image";
 import { useRouter } from "expo-router";
 import * as SecureStore from "expo-secure-store";
 import {
@@ -19,7 +19,15 @@ import {
   User,
 } from "lucide-react-native";
 import React, { useState } from "react";
-import { Alert, Pressable, ScrollView, Switch, Text, View } from "react-native";
+import {
+  Alert,
+  Image,
+  Pressable,
+  ScrollView,
+  Switch,
+  Text,
+  View,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useApp } from "../../context/AppContext";
 
@@ -27,31 +35,27 @@ const ProfileTab = () => {
   const router = useRouter();
   const { businessProfile } = useApp();
   const [biometricsEnabled, setBiometricsEnabled] = useState(true);
-  const [{ name, shopName }, { setName, setShopName }] = useProfile();
+  const [{ name, shopName, profileUrl }] = useProfile();
 
   const handleLogout = () => {
-    Alert.alert(
-      "Log Out",
-      "Are you sure you want to log out of Sovereign Ledger?",
-      [
-        { text: "Cancel", style: "cancel" },
-        {
-          text: "Log Out",
-          style: "destructive",
-          onPress: async () => {
-            try {
-              await AsyncStorage.removeItem("userEmail");
-              await SecureStore.deleteItemAsync("userPassword");
-              console.log("Cache cleared!");
-            } catch (error) {
-              console.error("Error clearing data:", error);
-            } finally {
-              router.replace("/");
-            }
-          },
+    Alert.alert("Log Out", "Are you sure you want to log out of Oga Ledger?", [
+      { text: "Cancel", style: "cancel" },
+      {
+        text: "Log Out",
+        style: "destructive",
+        onPress: async () => {
+          try {
+            await AsyncStorage.removeItem("userEmail");
+            await SecureStore.deleteItemAsync("userPassword");
+            console.log("Cache cleared!");
+          } catch (error) {
+            console.error("Error clearing data:", error);
+          } finally {
+            router.replace("/");
+          }
         },
-      ],
-    );
+      },
+    ]);
   };
 
   return (
@@ -68,14 +72,19 @@ const ProfileTab = () => {
         <View className="flex-row items-center gap-4 py-6">
           <View className="relative">
             <View className="w-20 h-20 rounded-full border-4 border-[#00a86b] p-1 bg-white shadow-sm overflow-hidden">
-              <Image
-                source={{ uri: businessProfile.avatar }}
-                className="w-full h-full rounded-full bg-slate-100"
-              />
+              {profileUrl ? (
+                <Image
+                  source={{ uri: profileUrl }}
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <View className="flex-1 items-center justify-center">
+                  <User size={32} color="#666" />
+                </View>
+              )}
             </View>
             <Pressable
               onPress={() => router.push("/edit-profile")}
-              
               className="absolute bottom-0 right-0 bg-[#006d43] p-1.5 rounded-full border-2 border-white active:scale-90"
             >
               <Text className="text-[9px] font-bold text-white uppercase px-0.5">
@@ -318,7 +327,7 @@ const ProfileTab = () => {
               onPress={() =>
                 Alert.alert(
                   "Privacy Policy",
-                  "Sovereign Ledger utilizes end-to-end device database encryption.",
+                  "Oga Ledger utilizes end-to-end device database encryption.",
                 )
               }
               className="w-full flex-row items-center justify-between p-4 bg-transparent border-b border-[#bccabe]/10 active:bg-[#e8e8ea]"

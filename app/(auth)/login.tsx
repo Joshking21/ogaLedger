@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { Keyboard, Pressable, View, Text, Alert } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { Link, useRouter } from "expo-router";
-import { Input, InputField } from "@/components/ui/input";
 import { Button, ButtonText } from "@/components/ui/button";
+import { Input, InputField } from "@/components/ui/input";
+import { Link, useRouter } from "expo-router";
+import React, { useState } from "react";
+import { Alert, Keyboard, Pressable, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const Login = () => {
   const router = useRouter();
@@ -22,10 +22,19 @@ const Login = () => {
 
   return (
     <SafeAreaView className="flex-1 bg-[#f9f9fc]">
-      <Pressable onPress={Keyboard.dismiss} className="flex-1 justify-center px-6">
+      <Pressable
+        onPress={Keyboard.dismiss}
+        className="flex-1 justify-center px-6"
+      >
         {/* Background decorative blurs */}
-        <View pointerEvents="none" className="absolute top-0 right-0 w-80 h-80 bg-emerald-100/30 rounded-full blur-[80px]" />
-        <View pointerEvents="none" className="absolute bottom-20 left-0 w-64 h-64 bg-slate-200/40 rounded-full blur-[60px]" />
+        <View
+          pointerEvents="none"
+          className="absolute top-0 right-0 w-80 h-80 bg-emerald-100/30 rounded-full blur-[80px]"
+        />
+        <View
+          pointerEvents="none"
+          className="absolute bottom-20 left-0 w-64 h-64 bg-slate-200/40 rounded-full blur-[60px]"
+        />
 
         {/* Brand details */}
         <View className="mb-10">
@@ -33,7 +42,7 @@ const Login = () => {
             Oga Ledger
           </Text>
           <Text className="text-sm text-[#6d7a70] font-semibold uppercase mt-1 tracking-wider">
-            Sign in to your sovereign database
+            Sign in to your Oga database
           </Text>
         </View>
 
@@ -43,7 +52,11 @@ const Login = () => {
             <Text className="text-xs font-bold text-[#6d7a70] uppercase tracking-widest pl-1 mb-2">
               Email Address
             </Text>
-            <Input variant="outline" size="xl" className="bg-white rounded-2xl border-[#bccabe]/30 px-3">
+            <Input
+              variant="outline"
+              size="xl"
+              className="bg-white rounded-2xl border-[#bccabe]/30 px-3"
+            >
               <InputField
                 placeholder="oga@example.com"
                 value={email}
@@ -59,7 +72,11 @@ const Login = () => {
             <Text className="text-xs font-bold text-[#6d7a70] uppercase tracking-widest pl-1 mb-2">
               Password
             </Text>
-            <Input variant="outline" size="xl" className="bg-white rounded-2xl border-[#bccabe]/30 px-3">
+            <Input
+              variant="outline"
+              size="xl"
+              className="bg-white rounded-2xl border-[#bccabe]/30 px-3"
+            >
               <InputField
                 placeholder="••••••••"
                 value={password}

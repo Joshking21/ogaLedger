@@ -1,7 +1,7 @@
 import { Button, ButtonText } from "@/components/ui/button";
 // import { useProfile } from "@/store/useStore";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Image } from "expo-image";
+// import { Image } from "expo-image";
 import { useRouter } from "expo-router";
 import {
   AlertCircle,
@@ -9,24 +9,37 @@ import {
   Plus,
   ShoppingCart,
   TrendingUp,
+  User,
   Wallet,
 } from "lucide-react-native";
 
+import { useProfile } from "@/store/useStore";
 import React, { useEffect } from "react";
-import { Dimensions, Pressable, ScrollView, Text, View } from "react-native";
+import {
+  Dimensions,
+  Image,
+  Pressable,
+  ScrollView,
+  Text,
+  View,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useApp } from "../../context/AppContext";
-import { useProfile } from "@/store/useStore";
 
 const { width } = Dimensions.get("window");
 
+
 const HomeTab = () => {
+  // const [{ profileUrl }] = useProfile();
   const router = useRouter();
   const { transactions, debtors } = useApp();
 
   // const [name, setName] = useState<string | null>(null);
   // const [shopName, setShopName] = useState<string | null>(null);
-  const [{ name, shopName }, { setName, setShopName }] = useProfile();
+  const [
+    { name, shopName, profileUrl },
+    { setName, setShopName, setProfileUrl },
+  ] = useProfile();
 
   // 2. Fetch the credentials asynchronously safely inside a hook
   useEffect(() => {
@@ -34,6 +47,7 @@ const HomeTab = () => {
       try {
         setName((await AsyncStorage.getItem("userFullName")) || "");
         setShopName((await AsyncStorage.getItem("userShopName")) || "");
+        setProfileUrl((await AsyncStorage.getItem("profileUrl")) || "");
       } catch (error) {
         console.error("Failed to load credentials:", error);
       } finally {
@@ -69,12 +83,16 @@ const HomeTab = () => {
       <View className="flex-row justify-between items-center px-6 py-4 z-10">
         <View className="flex-row items-center gap-3">
           <View className="w-10 h-10 rounded-full overflow-hidden bg-[#b9ebca] flex items-center justify-center border border-[#bccabe]/15">
-            <Image
-              source={{
-                uri: "https://lh3.googleusercontent.com/aida-public/AB6AXuCfzf5KubdEPPO8BINF_eGvh6hoFvakSfpSLS34nO6I_gSG65hLFmEQAS6SyLi0J2pkGWvvCU7c1tsTutRTy2mXRY6b7Sn15mrK8x_FaVc-UZPU8Q8EX1mOeHrKWxqghAFguHy2sZ2IjeK8A20F3v_UmG1FhZZVj5SK30RZUGJrfq24UOOhOns8aikKgP2LxemSxDaVeWxp8A3xrbFUK7JMpRDI3Vuw92SmRVh4pBEFag6kGJT8jXrX9k9pMiakGIDQf1ndX7FU6CU",
-              }}
-              className="w-full h-full object-cover"
-            />
+            {profileUrl ? (
+              <Image
+                source={{ uri: profileUrl }}
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <View className="flex-1 items-center justify-center">
+                <User size={32} color="#666" />
+              </View>
+            )}
           </View>
           <Text className="font-extrabold text-xl text-[#006d43] tracking-tight">
             {shopName} Ledger
@@ -86,10 +104,10 @@ const HomeTab = () => {
         </Pressable>
       </View>
 
-      <ScrollView 
-  showsVerticalScrollIndicator={false} 
-  style={{ flex: 1, paddingHorizontal: 24 }}
->
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={{ flex: 1, paddingHorizontal: 24 }}
+      >
         {/* Overview Banner */}
         <View className="mb-6 mt-2">
           {/* <Text className="font-bold text-xs text-[#3d4a41] tracking-widest uppercase mb-1">

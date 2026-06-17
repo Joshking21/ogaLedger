@@ -17,6 +17,7 @@ import { useApp } from "../context/AppContext";
 // import { View, Text, Pressable, Image, Alert } from "react-native";
 // 👑 Import both functions straight from ImagePicker
 import { useProfile } from "@/store/useStore";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as ImagePicker from "expo-image-picker";
 // import { Camera, User } from "lucide-react-native";
 
@@ -72,6 +73,7 @@ const EditProfile = () => {
     if (!result.canceled) {
       // setLogoUri(result.assets[0].uri);
       setProfileUrl(result.assets[0].uri);
+      await AsyncStorage.setItem("profileUrl", result.assets[0].uri);
     }
   };
 
@@ -93,6 +95,7 @@ const EditProfile = () => {
     if (!result.canceled) {
       // setLogoUri(result.assets[0].uri);
       setProfileUrl(result.assets[0].uri);
+      await AsyncStorage.setItem("profileUrl", result.assets[0].uri);
     }
   };
 
@@ -110,7 +113,7 @@ const EditProfile = () => {
     { label: "Hospitality & Food", value: "hospitality" },
     { label: "Professional Services", value: "tech" },
   ];
-  // console.log(logoUri);
+
 
   return (
     <SafeAreaView className="flex-1 bg-[#f9f9fc]">

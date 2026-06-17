@@ -1,16 +1,10 @@
+import { Button, ButtonIcon, ButtonText } from "@/components/ui/button";
 import React, { useState } from "react";
-import {
-  Text,
-  View,
-  Pressable,
-  FlatList,
-  Alert,
-} from "react-native";
-import { Button, ButtonText, ButtonIcon } from "@/components/ui/button";
+import { Alert, FlatList, Image, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Image } from "expo-image";
-import { useApp, Debtor } from "../../context/AppContext";
-import { Users, AlertTriangle, Send } from "lucide-react-native";
+// import { Image } from "expo-image";
+import { AlertTriangle, Send, Users } from "lucide-react-native";
+import { Debtor, useApp } from "../../context/AppContext";
 
 const SavedTab = () => {
   const { debtors, sendReminder } = useApp();
@@ -23,7 +17,7 @@ const SavedTab = () => {
     setRemindedList((prev) => [...prev, debtor.id]);
     Alert.alert(
       "Reminder Sent",
-      `A polite WhatsApp/SMS reminder has been dispatched to ${debtor.name} at ${debtor.phone} for ₦${debtor.amountOwed.toLocaleString()}.`
+      `A polite WhatsApp/SMS reminder has been dispatched to ${debtor.name} at ${debtor.phone} for ₦${debtor.amountOwed.toLocaleString()}.`,
     );
   };
 
@@ -31,7 +25,7 @@ const SavedTab = () => {
     debtors.forEach((d) => sendReminder(d.id));
     Alert.alert(
       "Reminders Dispatched",
-      `Polite notifications have been sent to all ${debtors.length} outstanding debtors.`
+      `Polite notifications have been sent to all ${debtors.length} outstanding debtors.`,
     );
   };
 
@@ -39,9 +33,7 @@ const SavedTab = () => {
     const hasBeenReminded = remindedList.includes(item.id);
 
     return (
-      <View
-        className="bg-white rounded-3xl p-5 border border-[#bccabe]/10 shadow-sm flex-row items-center justify-between mb-4"
-      >
+      <View className="bg-white rounded-3xl p-5 border border-[#bccabe]/10 shadow-sm flex-row items-center justify-between mb-4">
         {/* Profile and Details */}
         <View className="flex-row items-center gap-4 flex-1">
           <View className="w-12 h-12 rounded-full overflow-hidden bg-slate-100 border border-[#bccabe]/10">
@@ -58,7 +50,8 @@ const SavedTab = () => {
             <View className="flex-row items-center gap-1.5 mt-1">
               <AlertTriangle size={12} color="#a5393e" />
               <Text className="text-[#a5393e] text-xs font-semibold">
-                {item.overdueDays} {item.overdueDays === 1 ? "day" : "days"} overdue
+                {item.overdueDays} {item.overdueDays === 1 ? "day" : "days"}{" "}
+                overdue
               </Text>
             </View>
           </View>
@@ -75,8 +68,14 @@ const SavedTab = () => {
               hasBeenReminded ? "bg-slate-100" : "bg-[#006d43]"
             } active:opacity-95`}
           >
-            <ButtonIcon as={Send} className={hasBeenReminded ? "text-[#6d7a70]" : "text-white"} size={11 as any} />
-            <ButtonText className={`text-xs font-bold ${hasBeenReminded ? "text-[#6d7a70]" : "text-white"}`}>
+            <ButtonIcon
+              as={Send}
+              className={hasBeenReminded ? "text-[#6d7a70]" : "text-white"}
+              size={11 as any}
+            />
+            <ButtonText
+              className={`text-xs font-bold ${hasBeenReminded ? "text-[#6d7a70]" : "text-white"}`}
+            >
               {hasBeenReminded ? "Reminded" : "Remind"}
             </ButtonText>
           </Button>
